@@ -1,10 +1,10 @@
-import React, { Fragment } from "react";
-import logo from "./logo.svg";
+import { Fragment } from "react";
+import { Navigation } from './routes/Navigation';
 
 function App() {
   return (
     <Fragment>
-      <h1>Hola mundo</h1>
+      <Navigation />
     </Fragment>
   );
 }
