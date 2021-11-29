@@ -1,6 +1,7 @@
 import { BrowserRouter, Navigate } from "react-router-dom";
 import { Routes, Route, NavLink } from "react-router-dom";
 import Logo from "../logo.svg";
+import { routes } from "./routes";
 
 export const Navigation = () => {
   return (
@@ -8,40 +9,24 @@ export const Navigation = () => {
       <div className="main-layout">
         <nav>
           <img src={Logo} alt="logo" />
-
           <ul>
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) => (isActive ? "nav-active" : "")}
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/about"
-                className={({ isActive }) => (isActive ? "nav-active" : "")}
-              >
-                About
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/users"
-                className={({ isActive }) => (isActive ? "nav-active" : "")}
-              >
-                Users
-              </NavLink>
-            </li>
+            {routes.map((r, i) => (
+              <li key={i}>
+                <NavLink
+                  to={r.to}
+                  className={({ isActive }) => (isActive ? "nav-active" : "")}
+                >
+                  {r.name}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </nav>
 
         <Routes>
-          <Route path="/" element={<h1>home</h1>} />
-          <Route path="about" element={<h1>about</h1>} />
-          <Route path="users" element={<h1>users</h1>} />
-          {/* if you don't navigate to the correct path redirect to homepage */}
+          {routes.map((r, i) => (
+            <Route path={r.path} element={<r.Component />} />
+          ))}
           <Route path="/*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
